@@ -12,7 +12,7 @@ export class IncomingMailService {
   ) {}
 
   async generateRandomMail(): Promise<void> {
-    const count = Math.floor(Math.random() * 10) + 1;
+    const count = Math.floor(Math.random() * 3) + 1;
     const mails = Array.from({ length: count }, () => {
       const incomingMail = new IncomingMail();
       incomingMail.sender = faker.name.firstName();
