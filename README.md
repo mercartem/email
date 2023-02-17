@@ -1,7 +1,7 @@
 # [E-mail App](https://github.com/mercartem/email/tree/master)
 
 ## Frontend:
-- [Demo](quasar-email.netlify.app)
+- [Demo](https://quasar-email.netlify.app)
 
 ## Backend:
 ```bash
