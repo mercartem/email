@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { IncomingMail } from './incoming-mail.entity';
 import { faker } from '@faker-js/faker';
 
@@ -9,6 +9,7 @@ export class IncomingMailService {
   constructor(
     @InjectRepository(IncomingMail)
     private readonly incomingMailRepository: Repository<IncomingMail>,
+    private readonly entityManager: EntityManager,
   ) {}
 
   async generateRandomMail(): Promise<void> {
@@ -27,5 +28,9 @@ export class IncomingMailService {
   async getAll(): Promise<IncomingMail[]> {
     await this.generateRandomMail();
     return this.incomingMailRepository.find();
+  }
+
+  async deleteAll(): Promise<void> {
+    await this.entityManager.delete(IncomingMail, {});
   }
 }

@@ -39,4 +39,30 @@ async function createSendMails(mail: Draft) {
   }
 }
 
-export { getIncomingEmails, getSendEmails, createSendMails };
+async function deleteSendMails() {
+  try {
+    await fetch("http://localhost:3333/letters/", {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function deleteIncomingMails() {
+  try {
+    await fetch("http://localhost:3333/incoming-mail/", {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export {
+  getIncomingEmails,
+  getSendEmails,
+  createSendMails,
+  deleteSendMails,
+  deleteIncomingMails,
+};

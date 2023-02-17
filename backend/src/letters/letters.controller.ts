@@ -5,6 +5,7 @@ import {
   Body,
   HttpCode,
   HttpStatus,
+  Delete,
 } from '@nestjs/common';
 import { CreateLetterDto } from './dto/create-letter.dto';
 import { LettersService } from './letters.service';
@@ -22,5 +23,10 @@ export class LettersController {
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createLetterDto: CreateLetterDto) {
     return this.lettersService.create(createLetterDto);
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.lettersService.deleteAll();
   }
 }

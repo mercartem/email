@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { CreateLetterDto } from './dto/create-letter.dto';
 import { Letter } from './letters.entity';
 
@@ -9,6 +9,7 @@ export class LettersService {
   constructor(
     @InjectRepository(Letter)
     private readonly letterRepository: Repository<Letter>,
+    private readonly entityManager: EntityManager,
   ) {}
 
   async getAll(): Promise<Letter[]> {
@@ -22,5 +23,9 @@ export class LettersService {
     letter.createdAt = new Date();
     await this.letterRepository.save(letter);
     return letter;
+  }
+
+  async deleteAll(): Promise<void> {
+    await this.entityManager.delete(Letter, {});
   }
 }

@@ -63,6 +63,7 @@
       <q-page-container>
         <div class="q-pa-md q-gutter-sm row justify-end">
           <q-btn color="primary" label="Create" @click="medium = true" />
+          <q-btn color="primary" label="Delete All" @click="deleteAllMails" />
         </div>
         <keep-alive>
           <router-view />
@@ -118,7 +119,13 @@
 <script>
 import { ref, computed } from "vue";
 import { useMailStore } from "../stores/mails";
-import { getIncomingEmails, getSendEmails, createSendMails } from "../api/api";
+import {
+  getIncomingEmails,
+  getSendEmails,
+  createSendMails,
+  deleteIncomingMails,
+  deleteSendMails,
+} from "../api/api";
 
 export default {
   setup() {
@@ -170,6 +177,13 @@ export default {
       mailStore.setMails(await getIncomingEmails());
     }
 
+    async function deleteAllMails() {
+      await deleteIncomingMails();
+      await deleteSendMails();
+      mailStore.setMails([]);
+      mailStore.setSend([]);
+    }
+
     return {
       incomingMailCounter,
       draftCounter,
@@ -189,6 +203,7 @@ export default {
       },
       getAllIncoming,
       sendAllDrafts,
+      deleteAllMails,
     };
   },
 };

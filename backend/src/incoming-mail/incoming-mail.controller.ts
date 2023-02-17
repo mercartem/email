@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Delete, Get } from '@nestjs/common';
 import { IncomingMailService } from './incoming-mail.service';
 
 @Controller('incoming-mail')
@@ -8,5 +8,10 @@ export class IncomingMailController {
   @Get()
   getRandom() {
     return this.incomingMailService.getAll();
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.incomingMailService.deleteAll();
   }
 }
